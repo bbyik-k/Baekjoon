@@ -31,9 +31,11 @@ function merge(arr, left, mid, right) {
 // 병합 정렬(merge sort) 함수
 function mergeSort(arr, left, right) {
   // 원소가 1개인 경우, 해당 배열은 정렬이 된 상태로 이해 가능
+  console.log(`left: ${left} /// right: ${right}`);
   if (left < right) {
     // 원소가 2개 이상이라면
     let mid = parseInt((left + right) / 2); // 2개의 부분 배열로 분할(divide)
+    console.log(`mid: ${mid} /// arr: ${arr}`);
     mergeSort(arr, left, mid); // 왼쪽 부분 배열 정렬 수행(conquer)
     mergeSort(arr, mid + 1, right); // 오른쪽 부분 배열 정렬 수행(conquer)
     merge(arr, left, mid, right); // 정렬된 2개의 배열을 하나로 병합(combine)
@@ -47,7 +49,7 @@ let arr = Array.from({ length: 100000 }, () => Math.floor(Math.random() * 1000))
 startTime = new Date().getTime();
 // 임시 정렬 배열(sorted) 정의
 sorted = Array.from({ length: arr.length }, () => 0);
-mergeSort(arr, 0, arr.length - 1);
+// mergeSort(arr, 0, arr.length - 1);
 endTime = new Date().getTime();
 // 시간차 출력
 console.log('병합 정렬 소요 시간:', endTime - startTime, 'ms.');
@@ -58,7 +60,12 @@ arr = Array.from({ length: 100000 }, () => 7);
 startTime = new Date().getTime();
 // 임시 정렬 배열(sorted) 정의
 sorted = Array.from({ length: arr.length }, () => 0);
-mergeSort(arr, 0, arr.length - 1);
+// mergeSort(arr, 0, arr.length - 1);
 endTime = new Date().getTime();
 // 시간차 출력
 console.log('정렬된 배열에 대한 병합 정렬 소요 시간:', endTime - startTime, 'ms.');
+
+let testArr = [8, 4, 6, 1, 2, 5, 7, 3];
+mergeSort(testArr, 0, testArr.length - 1);
+console.log(testArr.length - 1);
+console.log(`Edit Arr: ${testArr}`);
