@@ -56,6 +56,9 @@ function compareStringUpper(a, b) {
 stringArr.sort(compareStringUpper);
 console.log(stringArr);
 
+//문자열 정렬 내장 메소드 사용
+stringArr = ['pineapple', 'banana', 'durian', 'apple', 'carrot'];
+
 // 객체 오름차순 정렬
 let dic = [
   { name: '홍길동', score: 90 },
@@ -67,3 +70,13 @@ function compare(a, b) {
 }
 dic.sort(compare);
 console.log(dic);
+
+dic.sort((a, b) => a.score - b.score);
+console.log(dic);
+
+// 객체 값 기준 정렬, localeCompare 함수 사용
+dic.sort((a, b) => a.name.localeCompare(b.name));
+console.log(dic);
+
+let testStringArr = ['홍길동', '김철수', '박영희'];
+console.log(testStringArr[0].localeCompare(testStringArr[1]));
