@@ -1,23 +1,23 @@
 class Queue {
-  constructor(){
+  constructor() {
     this.items = {};
     this.headIndex = 0;
     this.tailIndex = 0;
   }
-  enqueue(item){
+  enqueue(item) {
     this.items[this.tailIndex] = item;
     this.tailIndex++;
   }
-  dequeue(){
+  dequeue() {
     const item = this.items[this.headIndex];
     delete this.items[this.headIndex];
     this.headIndex++;
     return item;
   }
-  peek(){
+  peek() {
     return this.items[this.headIndex];
   }
-  getLength(){
+  getLength() {
     return this.tailIndex - this.headIndex;
   }
 }
@@ -33,6 +33,6 @@ queue.enqueue(1);
 queue.enqueue(4);
 queue.dequeue();
 
-while(queue.getLength() != 0){
+while (queue.getLength() != 0) {
   console.log(queue.dequeue());
 }
