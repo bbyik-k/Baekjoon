@@ -1,29 +1,20 @@
 let fs = require('fs');
-let input = fs.readFileSync('/dev/stdin').toString().trim().split('\n');
-// let input = fs.readFileSync('./test.txt').toString().trim().split('\n');
+let input = fs.readFileSync('/dev/stdin').toString().split('\n');
+// let input = fs.readFileSync('./test.txt').toString().split('\n');
+let n = Number(input[0]);
+let arr = input[1].split(' ').map(Number);
 
-let coord = input[1].split(' ').map(Number);
+// 집합(set)으로 변경해 중복 값을 없앤 뒤에 다시 배열로 변환
+let uniqueArray = [...new Set(arr)];
 
-newCoord = coord.map((ele, idx) => [idx, ele]);
+uniqueArray.sort((a, b) => a - b); // 오름차순 정렬 수행
 
-newCoord.sort((a, b) => a[1] - b[1]);
+// 0부터 차례대로 매핑(mapping) 수행
+let myMap = new Map();
+for (let i = 0; i < uniqueArray.length; i++) {
+  myMap.set(uniqueArray[i], i);
+}
 
-let prev = -1000000001;
-let cnt = -1;
-let cur = '';
-newCoord.forEach((ele) => {
-  cur = ele[1];
-  // console.log(`ele[1]: ${ele[1]} // prev: ${prev} / /cur: ${cur} // cnt: ${cnt}`);
-
-  if (ele[1] != prev) {
-    cnt++;
-    ele[1] = cnt;
-  } else {
-    ele[1] = cnt;
-  }
-  prev = cur;
-});
-
-newCoord.sort((a, b) => a[0] - b[0]);
-newCoord = newCoord.map((ele) => ele[1]);
-console.log(newCoord.join(' '));
+answer = '';
+for (x of arr) answer += myMap.get(x) + ' ';
+console.log(answer);
