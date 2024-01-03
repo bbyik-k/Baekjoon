@@ -9,12 +9,8 @@ let numArr = input.map((num) => num.split(' ').map(Number));
 numArr.sort(sorting);
 
 function sorting(a, b) {
-  if (a[0] != b[0]) return a[0] - b[0];
-  else return a[1] - b[1];
+  return a[0] - b[0] || a[1] - b[1];
 }
 
-let returnStr = '';
-numArr.forEach((ele) => (returnStr += `${ele[0]} ${ele[1]}\n`));
-
-// console.log(numArr);
-console.log(returnStr);
+let resultArr = numArr.map((ele) => `${ele[0]} ${ele[1]}`);
+console.log(resultArr.join('\n'));
