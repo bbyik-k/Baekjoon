@@ -11,18 +11,17 @@ let sortPrice = [...new Set([...oilPrice].sort((a, b) => a - b))];
 
 let cnt = cityCnt - 1;
 let checkCnt = 0;
-let total = 0;
+let total = BigInt(0);
 while (cnt != 0) {
   let selCnt = oilPrice.indexOf(sortPrice[checkCnt]);
-
   checkCnt++;
 
   if (selCnt + 1 === cityCnt || cnt < selCnt) continue;
   else {
     for (let i = selCnt; i < cnt; i++) {
-      total += oilPrice[selCnt] * distance[i];
+      total += BigInt(oilPrice[selCnt]) * BigInt(distance[i]);
     }
   }
   cnt = selCnt;
 }
-console.log(total);
+console.log(String(total));
