@@ -1,3 +1,9 @@
+/**
+ * 58분 소요...
+ * 너무 오래걸림 -> 피보나치 일반항 식 서칭 및 식 만들기 시간 많이 걸림
+ * !!! 한 번에 통과
+ */
+
 let fs = require('fs');
 let input = fs.readFileSync('/dev/stdin').toString().trim().split('\n');
 // let input = fs.readFileSync('./test.txt').toString().trim().split('\n');
@@ -24,7 +30,7 @@ for (let i = 0; i < testCnt; i++) {
     let selFbn = fbnArr[FBNnum];
     if (targetNum >= selFbn) {
       targetNum -= selFbn;
-      
+
       correct.push(selFbn);
     }
     FBNnum--;
