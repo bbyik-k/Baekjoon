@@ -1,3 +1,8 @@
+/**
+ * worng...
+ * 아이디어를 못 떠올림ㅜ
+ */
+
 let fs = require('fs');
 let input = fs.readFileSync('/dev/stdin').toString().split('\n');
 // 공의 개수 N과 바구니의 개수 K를 입력받기
