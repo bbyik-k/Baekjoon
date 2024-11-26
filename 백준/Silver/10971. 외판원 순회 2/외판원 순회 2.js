@@ -1,47 +1,32 @@
-let fs = require('fs');
-let input = fs.readFileSync('/dev/stdin').toString().trim().split('\n');
+const fs = require('fs');
+const input = fs.readFileSync('/dev/stdin').toString().trim().split('\n');
 // let input = fs.readFileSync('./test.txt').toString().trim().split('\n');
 
-let n = Number(input[0]);
-let graph = []; // 전체 그래프(graph) 정보 입력
-for (let i = 0; i <= n; i++) graph.push([0]);
-for (let i = 1; i <= n; i++) {
-  line = input[i].split(' ').map(Number);
-  for (let j = 0; j < n; j++) graph[i].push(line[j]);
-}
-let visited = new Array(11).fill(false); // 방문 처리 배열
-let result = []; // 순열 정보 배열
-let minValue = 1e9;
+const n = Number(input[0]); // 도시의 수
+const cost = input.slice(1).map((line) => line.split(' ').map(Number)); // 비용 행렬
 
-// 2부터 N까지의 수를 하나씩 골라 나열하는 모든 순열을 계산
-function dfs(depth) {
-  if (depth == n - 1) {
-    // 현재 순열에 대한 처리
-    let totalCost = 0; // 1번 노드에서 출발
-    let cur = 1; // 1번 노드에서 출발
-    for (let i = 0; i < n - 1; i++) {
-      // 현재 순열에 따라서 노드 이동
-      let nextNode = result[i]; // 다음 이동 노드까지의 비용 계산
-      let cost = graph[cur][nextNode];
-      if (cost == 0) return; // 이동 불가능하면 무시
-      totalCost += cost; // 이동 가능하면, 비용을 더하고 노드 이동
-      cur = nextNode;
+let visited = new Array(n).fill(false); // 방문 여부 확인 배열
+let minCost = Infinity; // 최소 비용 저장
+
+function tsp(current, visitedCount, currentCost) {
+  if (visitedCount === n && cost[current][0] !== 0) {
+    // 모든 도시를 방문했으면 시작점으로 돌아오는 비용 추가
+    minCost = Math.min(minCost, currentCost + cost[current][0]);
+    return;
+  }
+
+  for (let next = 0; next < n; next++) {
+    if (!visited[next] && cost[current][next] !== 0) {
+      // 방문하지 않았고 길이 있는 경우에만 탐색
+      visited[next] = true;
+      tsp(next, visitedCount + 1, currentCost + cost[current][next]);
+      visited[next] = false; // 백트래킹
     }
-    // 마지막 노드에서 1로 돌아오는 것이 필수
-    let cost = graph[cur][1];
-    if (cost == 0) return; // 이동 불가능하면 무시
-    totalCost += cost; // 이동 가능하면, 비용을 더하고 노드 이동
-    minValue = Math.min(minValue, totalCost); // 경로의 최소 비용 저장
-  }
-  for (let i = 2; i <= n; i++) {
-    if (visited[i]) continue;
-    result.push(i); // 방문 처리
-    visited[i] = true;
-    dfs(depth + 1); // 재귀 함수 호출
-    result.pop(); // 방문 처리 해제
-    visited[i] = false;
   }
 }
 
-dfs(0);
-console.log(minValue);
+// 시작 도시에서 탐색 시작
+visited[0] = true;
+tsp(0, 1, 0);
+
+console.log(minCost);
