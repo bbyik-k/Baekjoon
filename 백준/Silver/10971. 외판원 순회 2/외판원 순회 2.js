@@ -9,9 +9,13 @@ let visited = new Array(n).fill(false); // 방문 여부 확인 배열
 let minCost = Infinity; // 최소 비용 저장
 
 function tsp(current, visitedCount, currentCost) {
-  if (visitedCount === n && cost[current][0] !== 0) {
-    // 모든 도시를 방문했으면 시작점으로 돌아오는 비용 추가
-    minCost = Math.min(minCost, currentCost + cost[current][0]);
+  if (currentCost > minCost) return; //가지치기 적용
+  if (visitedCount === n) {
+    if (cost[current][0] !== 0) {
+      //if문을 이중으로 변경함으로서 하단 for문이 의미없이 실행되지 않도록.
+      minCost = Math.min(minCost, currentCost + cost[current][0]);
+      // 모든 도시를 방문했으면 시작점으로 돌아오는 비용 추가
+    }
     return;
   }
 
