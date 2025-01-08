@@ -1,6 +1,6 @@
 const fs = require('fs');
-const input = fs.readFileSync('/dev/stdin').toString().trim().split('\n');
-// let input = fs.readFileSync('./test.txt').toString().trim().split('\n');
+// const input = fs.readFileSync('/dev/stdin').toString().trim().split('\n');
+let input = fs.readFileSync('./test.txt').toString().trim().split('\n');
 
 const n = Number(input[0]); // 도시의 수
 const cost = input.slice(1).map((line) => line.split(' ').map(Number)); // 비용 행렬
@@ -9,8 +9,10 @@ let visited = new Array(n).fill(false); // 방문 여부 확인 배열
 let minCost = Infinity; // 최소 비용 저장
 
 function tsp(current, visitedCount, currentCost) {
+  console.log(visited);
   if (currentCost > minCost) return; //가지치기 적용
   if (visitedCount === n) {
+    console.log('----------------------');
     if (cost[current][0] !== 0) {
       //if문을 이중으로 변경함으로서 하단 for문이 의미없이 실행되지 않도록.
       minCost = Math.min(minCost, currentCost + cost[current][0]);
