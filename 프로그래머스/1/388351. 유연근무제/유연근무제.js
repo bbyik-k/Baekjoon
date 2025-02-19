@@ -18,6 +18,7 @@ function checkLog(timeLog, safeLine, startday) {
     if (weekCnt === 6 || weekCnt === 7 || timeLog[i] > 1110) {
       // weekCnt++;
       weekCnt = (weekCnt % 7) + 1; // 요일 업데이트 (7을 넘으면 1로)
+      //처리하지 않으면 startday 가 6일 경우 문제가 됨
       continue;
     }
 
