@@ -1,18 +1,19 @@
-const fs = require('fs');
-const path = process.platform === 'linux' ? '/dev/stdin' : __dirname + '/test.txt';
-const input = fs.readFileSync(path).toString().trim().split('\n');
+let fs = require('fs');
+let path = process.platform === 'linux' ? '/dev/stdin' : __dirname + '/test.txt';
+let input = fs.readFileSync(path).toString().trim().split('\n');
 
 let line = 0;
 let caseNum = 1;
 
 while (true) {
   const [n, m] = input[line++].split(' ').map(Number);
-  if (n === 0 && m === 0) break;
+  if (n === 0 && m === 0) {
+    break;
+  }
 
   const graph = Array.from({ length: n + 1 }, () => []);
-  const visited = Array(n + 1).fill(false); // 방문 처리 배열
+  const visited = Array(n + 1).fill(false);
 
-  // 그래프 구성
   for (let i = 0; i < m; i++) {
     const [a, b] = input[line++].split(' ').map(Number);
     graph[a].push(b);
@@ -21,22 +22,29 @@ while (true) {
 
   let treeCount = 0;
 
-  // 트리 여부 판별: 사이클 없고 연결된 구성요소이면 트리
+  // 트리 여부 판별
   const isTree = (node, parent) => {
     visited[node] = true;
     for (const next of graph[node]) {
       if (!visited[next]) {
+        //방문 배열이 아닐 시
+        //isTree 재귀 체크
+        //false 전달
         if (!isTree(next, node)) return false;
       } else if (next !== parent) {
-        return false; // 사이클 존재
+        //방문배열이고, 이전 노드가 아닐 경우 사이클 존재
+        return false; //사이클 존재 시
       }
     }
+    //재귀 호출로 마지막 노드까지 모두 호출 완료 시 통과
     return true;
   };
 
   // 각 연결 요소에 대해 트리 여부 확인
   for (let i = 1; i <= n; i++) {
     if (!visited[i]) {
+      //재귀 호출로 마지막 노드까지 모두 호출 완료 시 통과
+      // 통과 return true 받아서 여기서 카운트 증가
       if (isTree(i, 0)) treeCount++;
     }
   }
