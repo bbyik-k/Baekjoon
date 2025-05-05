@@ -20,18 +20,10 @@ function bfs(mapSize, knight, target) {
   const visited = Array.from({ length: mapSize }, () => Array(mapSize).fill(false));
   const distance = Array.from({ length: mapSize }, () => Array(mapSize).fill(0));
   const [targetX, targetY] = target;
-  // console.log(`----------------targetX: ${targetX} // targetY: ${targetY}`);
   visited[knight[0]][knight[1]] = true;
   while (queue.length) {
-    // console.log(queue);
     const [nowX, nowY] = queue.shift();
-    // console.log(`nowX: ${nowX} // nowY: ${nowY}`);
-
-    // console.log(`nowX: ${nowX} // nowY: ${nowY}`);
     if (nowX === targetX && nowY === targetY) {
-      // console.log(nowX);
-      // console.log(target);
-      // console.log(`----------------------${distance[nowX][nowY]}`);
       console.log(distance[nowX][nowY]);
       return;
     }
@@ -42,8 +34,6 @@ function bfs(mapSize, knight, target) {
       if (nx < 0 || nx >= mapSize || ny < 0 || ny >= mapSize) {
         continue; // 공간을 벗어난 경우 무시}
       }
-      // console.log(`visited[${nx}][${ny}] = ${visited[nx][ny]}`);
-      // console.log(`${visited}`);
       if (!visited[nx][ny]) {
         // 방문하지 않은 위치인 경우
         visited[nx][ny] = true;
