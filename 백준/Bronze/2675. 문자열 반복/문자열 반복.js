@@ -1,17 +1,16 @@
-let fs = require('fs');
-let input = fs.readFileSync('/dev/stdin').toString().split('\n');
+const fs = require('fs');
+const path = process.platform === 'linux' ? '/dev/stdin' : __dirname + '/test.txt';
+const input = fs.readFileSync(path).toString().trim().split('\n');
 
-let cnt = Number(input[0]);
+const n = Number(input[0]);
 
+for (let i = 1; i <= n; i++) {
+  let [repeatCnt, str] = input[i].split(' ');
+  repeatCnt = Number(repeatCnt);
 
-for(let i = 1; i <= cnt; i++){
-  let problem = input[i].split(' ');
-  let addCnt = Number(problem[0]);
-  let str = problem[1];
-  let newStr = '';
-
-  for(x of str){
-    newStr += x.repeat(addCnt);
+  let result = '';
+  for (let char of str) {
+    result += char.repeat(repeatCnt);
   }
-  console.log(newStr);
+  console.log(result);
 }
