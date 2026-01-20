@@ -1,24 +1,31 @@
 const fs = require('fs');
-const input = fs.readFileSync('/dev/stdin').toString().trim();
+const path = process.platform === 'linux' ? '/dev/stdin' : __dirname + '/test.txt';
+const input = fs.readFileSync(path).toString().trim().split('\n');
 
-const str = input.toUpperCase(); // 대소문자 구분 제거
-const frequency = new Map(); // 알파벳 빈도수 저장
+const charMap = new Map();
+const str = input[0].toUpperCase();
 
-// 빈도수 계산
-for (const char of str) {
-  frequency.set(char, (frequency.get(char) || 0) + 1);
+// console.log(charMap.get('M'));
+// console.log(str);
+
+for (char of str) {
+  charMap.set(char, (charMap.get(char) || 0) + 1);
 }
 
-// 최빈값 계산
-let maxCount = 0;
-let result = '?';
-for (const [char, count] of frequency.entries()) {
-  if (count > maxCount) {
-    maxCount = count;
-    result = char; // 최빈값 갱신
-  } else if (count === maxCount) {
-    result = '?'; // 최빈값 중복 발생
+// console.log(charMap);
+
+let maxCnt = 0;
+let maxChar = '?';
+for (const [curChar, curCnt] of charMap) {
+  // const [curChar, curCnt] = ele;
+  // console.log(`curChar: ${curChar} / cnt: ${curCnt}`);
+  if (curCnt > maxCnt) {
+    maxChar = curChar;
+    maxCnt = curCnt;
+  } else if (curCnt === maxCnt) {
+    maxChar = '?';
   }
+  // console.log(`maxChar: ${maxChar}`);
 }
 
-console.log(result);
+console.log(maxChar);
