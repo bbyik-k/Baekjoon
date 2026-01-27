@@ -1,11 +1,18 @@
-let fs = require('fs');
-let input = fs.readFileSync('/dev/stdin').toString().trim().split('\n');
-// let input = fs.readFileSync('./test.txt').toString().trim().split('\n');
+const fs = require('fs');
+const path = process.platform === 'linux' ? '/dev/stdin' : __dirname + '/test.txt';
+const input = fs.readFileSync(path).toString().trim().split('\n');
 
-input.shift();
+const N = Number(input[0]);
 
-let arr = [...new Set(input)];
+let wordSet = new Set(input.slice(1));
+let wordArr = [...wordSet];
 
-arr.sort((a, b) => a.length - b.length || a.localeCompare(b));
+wordArr.sort((a, b) => {
+  if (a.length !== b.length) {
+    return a.length - b.length;
+  } else {
+    return a.localeCompare(b);
+  }
+});
 
-console.log(arr.join('\n'));
+console.log(wordArr.join('\n'));
