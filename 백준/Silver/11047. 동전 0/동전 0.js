@@ -1,19 +1,28 @@
-let fs = require('fs');
-let input = fs.readFileSync('/dev/stdin').toString().trim().split('\n');
-// let input = fs.readFileSync('./test.txt').toString().trim().split('\n');
+const fs = require('fs');
+const path = process.platform === 'linux' ? '/dev/stdin' : __dirname + '/test.txt';
+const input = fs.readFileSync(path).toString().trim().split('\n');
 
-let len = Number(input[0].split(' ')[0]);
-let target = Number(input[0].split(' ')[1]);
+let [N, K] = input[0].split(' ').map(Number);
+input.shift();
+let arr = input.map(Number);
 
-let moneyArr = input.map(Number);
+// console.log(N);
+// console.log(K);
+// console.log(arr);
 
-let total = 0;
-
-for (let i = len; i > 0; i--) {
-  if (target === 0) break;
-  let count = Math.floor(target / moneyArr[i]); // 해당 동전을 몇 개 사용해야 하는지
-  total += count;
-  target -= count * moneyArr[i];
+// let curCoin = arr.pop();
+// console.log(curCoin);
+let cnt = 0;
+while (K > 0) {
+  let curCoin = arr.pop();
+  if (K < curCoin) {
+    continue;
+  }
+  // console.log(`curCoin: ${curCoin}`);
+  // console.log(`cnt: ${cnt}`);
+  // console.log(`K / curCoin: ${Math.floor(K / curCoin)}`);
+  cnt += Math.floor(K / curCoin);
+  K = K % curCoin;
 }
 
-console.log(total);
+console.log(cnt);
