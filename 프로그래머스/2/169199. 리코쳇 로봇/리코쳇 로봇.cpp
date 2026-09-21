@@ -51,11 +51,11 @@ int solution(vector<string> board) {
     
     for(int i=0; i<n; i++){
         for(int j=0; j<m; j++){
-            if(board[i][j] == 'R') {rx = i; ry = j;};
+            if(board[i][j] == 'R') {ry = i; rx = j;};
         }
     }
     
-    answer = bfs(board, rx, ry);
+    answer = bfs(board, ry, rx);
     
     return answer;
     
