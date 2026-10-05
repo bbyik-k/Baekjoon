@@ -1,22 +1,18 @@
 function solution(clothes) {
     let clotheObj = {};
     
-    for(const clothe of clothes){
-        const [name, kind] = clothe;
-        if(clotheObj[kind]){
-            clotheObj[kind].push(name);
-        }else{
-            clotheObj[kind] = [name];
-        }
+    const countByKind = new Map();
+    
+    for(const [_, kink] of clothes){
+     countByKind.set(kink, (countByKind.get(kink) || 0) + 1);
         
     }
     
-    let cnt = 1;
-    for(const key in clotheObj){
-        
-        let lenght = clotheObj[key].length + 1;
-        cnt = cnt * lenght;
+    console.log(countByKind);
+    let combinations = 1;
+    for(const count of countByKind.values()){
+        combinations *= count + 1;
     }
     
-    return cnt-1;
+    return combinations-1;
 }
