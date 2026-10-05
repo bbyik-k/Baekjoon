@@ -13,26 +13,13 @@ function solution(clothes) {
     }
     
     let cnt = 1;
-    console.log(clotheObj);
     for(const key in clotheObj){
         
         let lenght = clotheObj[key].length + 1;
-        console.log(`--lenght: ${lenght}`);
         cnt = cnt * lenght;
     }
     
     const clothesLen = clothes.length;
-    
-    console.log(`clothesLen: ${clothesLen}`);
-    console.log(`cnt: ${cnt}`);
-    
-    
-//     if(Object.keys(clotheObj).length === 1){
-        
-//         return clothesLen;
-//     }else{
-//         return cnt + clothesLen;
-//     }
     
     return cnt-1;
 }
