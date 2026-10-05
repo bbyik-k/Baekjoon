@@ -1,5 +1,4 @@
 function solution(clothes) {
-    let answer = 0;
     let clotheObj = {};
     
     for(const clothe of clothes){
@@ -18,8 +17,6 @@ function solution(clothes) {
         let lenght = clotheObj[key].length + 1;
         cnt = cnt * lenght;
     }
-    
-    const clothesLen = clothes.length;
     
     return cnt-1;
 }
