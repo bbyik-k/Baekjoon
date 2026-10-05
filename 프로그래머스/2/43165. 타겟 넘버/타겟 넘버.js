@@ -1,24 +1,29 @@
 function solution(numbers, target) {
-  let sums = [0];/* (1) 시작 상태 */
+  let cnt = 0;
 
-  for (const num of numbers) {
-    const next = [];
-    for (const sum of sums) {
-      // (2) 다음 레벨 배열에 두 갈래를 넣는다
-        next.push(sum + num);
-        next.push(sum - num);
+  function dfs(index, sum) {
+    // (1) 종료 조건: 모든 숫자를 다 처리했다면?
+    //     target과 같으면 cnt 증가, 그리고 반드시 return
+    // console.log(`index: ${index}`);
+      // console.log(`length: ${numbers.length}`);
+      // console.log(`sum: ${sum}`);
+    if(index >= numbers.length){
+        // console.log(`-----sum: ${sum}`);
+        if(sum === target){
+            cnt++;
+        }
+        return;
     }
-    /* (3) */;
-    sums = next;
+    
+    
+    dfs(index+1, sum + numbers[index]);
+    dfs(index+1, sum - numbers[index]);
+
+    // (2) 두 갈래로 재귀 호출
   }
 
-  // (4) sums 중 target과 같은 값의 개수를 반환
-    let cnt = 0;
-    for (const sum of sums){
-        if(sum === target){
-            cnt ++;
-        }
-        
-    }
+  /* (3) 시작 상태 */
+  dfs(0, 0);
+    
   return cnt;
 }
