@@ -1,24 +1,24 @@
 function solution(progresses, speeds) {
-    let answer = [];
+    const answer = [];
     
-    let workDays = progresses.map((ele,idx) => {
+    const workDays = progresses.map((ele,idx) => {
         let rest = 100 - ele;
         return Math.ceil(rest / speeds[idx]);
     })
     
-    workDays.push(999);
-    console.log(workDays);
-    let anker = workDays[0];
+    workDays.push(Infinity);
+    
+    let anchor = workDays[0];
     let cnt = 0;
     for(let day of workDays){
-        if(day <= anker){
+        if(day <= anchor){
             cnt++;
         }else{
             answer.push(cnt);
             cnt = 1;
-            anker = day;
+            anchor = day;
         }
     }
-    console.log(answer);
+    
     return answer;
 }
