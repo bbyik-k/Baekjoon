@@ -1,21 +1,24 @@
 function solution(progresses, speeds) {
-  const days = progresses.map((p, i) => Math.ceil((100 - p) / speeds[i]));
-  const answer = [];
-
-  let currentMax = days[0]; // 기준 배포일
-  let count = 1;
-
-  for (let i = 1; i < days.length; i++) {
-    if (days[i] <= currentMax) {
-      count++;
-    } else {
-      answer.push(count);
-      currentMax = days[i];
-      count = 1;
+    let answer = [];
+    
+    let workDays = progresses.map((ele,idx) => {
+        let rest = 100 - ele;
+        return Math.ceil(rest / speeds[idx]);
+    })
+    
+    workDays.push(999);
+    console.log(workDays);
+    let anker = workDays[0];
+    let cnt = 0;
+    for(let day of workDays){
+        if(day <= anker){
+            cnt++;
+        }else{
+            answer.push(cnt);
+            cnt = 1;
+            anker = day;
+        }
     }
-  }
-
-  answer.push(count); // 마지막 배포 묶음
-
-  return answer;
+    console.log(answer);
+    return answer;
 }
