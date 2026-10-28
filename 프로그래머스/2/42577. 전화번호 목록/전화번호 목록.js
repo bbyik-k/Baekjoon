@@ -1,23 +1,12 @@
 function solution(phone_book) {
     
-    const bookMap = new Map();
+    const bookMap = new Set(phone_book);
     
-    for(let i=0; i<phone_book.length; i++){
-        bookMap.set(phone_book[i], '');
-    }
-    
-    for(let i=0; i<phone_book.length; i++){
-        const number = phone_book[i];
-        let startNum = '';
-        for(let j=0; j<number.length-1; j++){
-            startNum = `${startNum}${number[j]}`
-            if(bookMap.has(startNum)){
-                return false;
-            }
+    for(const numberStr of phone_book){
+        for(let j=1; j<numberStr.length; j++){
+            let startNum = numberStr.slice(0,j);
+            if(bookMap.has(startNum)) return false;
         }
     }
-    
-    
-    
     return true;
 }
