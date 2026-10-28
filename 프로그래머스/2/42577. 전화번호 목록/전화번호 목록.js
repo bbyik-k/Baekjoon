@@ -1,5 +1,4 @@
 function solution(phone_book) {
-    
     const bookMap = new Set(phone_book);
     
     for(const numberStr of phone_book){
